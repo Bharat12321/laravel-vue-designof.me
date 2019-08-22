@@ -3,15 +3,15 @@
         <div class="container v_text-set">
             <div class="row">
                 <div class="col-md-6 ">
-                    <textarea class="v_text-content" name="" id="" cols="40" rows="10"></textarea>
+                    <textarea class="v_text-content" name="" id="" cols="40" rows="10" v-model="text"></textarea>
                 </div>
                 <div class="col-md-6">
                     <span class="input-group-text black-text font-weight-bold v_text-type">Choose Text Type</span>
                     <div>
-                        <radio name="font" id="normal" value="font-normal" label="Text Type 01" v-bind:inverted="true" v-bind:checked="true" v-bind:required="true"></radio>
-                        <radio name="font" id="italic" value="font-italic" label="Text Type 02" v-bind:inverted="true" v-bind:checked="false" v-bind:required="true"></radio>
-                        <radio name="font" id="bold" value="font-bold" label="Text Type 03" v-bind:inverted="true" v-bind:checked="false" v-bind:required="true"></radio>
-                        <radio name="font" id="b_italic" value="font-b_italic" label="Text Type 04" v-bind:inverted="true" v-bind:checked="false" v-bind:required="true"></radio>
+                        <radio name="font" id="normal" value="font-normal" label="Text Type 01" v-bind:inverted="true" v-bind:checked="true" v-bind:required="true" v-on:input="handleClick"></radio>
+                        <radio name="font" id="italic" value="font-italic" label="Text Type 02" v-bind:inverted="true" v-bind:checked="false" v-bind:required="true" v-on:input="handleClick"></radio>
+                        <radio name="font" id="bold" value="font-bold" label="Text Type 03" v-bind:inverted="true" v-bind:checked="false" v-bind:required="true" v-on:input="handleClick"></radio>
+                        <radio name="font" id="b_italic" value="font-b_italic" label="Text Type 04" v-bind:inverted="true" v-bind:checked="false" v-bind:required="true" v-on:input="handleClick"></radio>
                     </div>
                 </div>
             </div>
@@ -20,8 +20,8 @@
             <div class="v_content-center v_tshirt">
                 <img :src="tshirt">
             </div>
-            <div class="v_text">
-                <!-- <img :src="logo"> -->
+            <div>
+                <label id="shirt-text" class="v_text-normal">{{ text }}</label>
             </div>
         </div>
     </div>
@@ -42,10 +42,6 @@
     .v_tshirt {
         padding: 120px 0px 120px 0px;
     }
-    .v_text {
-        position: absolute;
-        top: 40%;
-    }
     .v_text-content {
         width: 80%;
         border-color: black;
@@ -56,6 +52,40 @@
     .v_text-type {
         background-color: white;
         border: none;
+    }
+    .v_text-normal {
+        position: absolute;
+        top: 42%;
+        right: 36%;
+        font-weight: normal;
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+    .v_text-italic {
+        position: absolute;
+        top: 42%;
+        right: 36%;
+        font-weight: normal;
+        font-style: italic;
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+    .v_text-bold {
+        position: absolute;
+        top: 42%;
+        right: 36%;
+        font-weight: bold;
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+    .v_text-bold-italic {
+        position: absolute;
+        top: 42%;
+        right: 36%;
+        font-weight: bold;
+        font-style: italic;
+        font-size: 30px;
+        letter-spacing: 2px;
     }
 
 </style>
@@ -74,7 +104,25 @@
         data: function() {
             return {
                 tshirt: tshirt,
-                radioGroup: 1
+                text: ''
+            }
+        },
+        methods: {
+            handleClick: function(val) {
+                var el = document.getElementById('shirt-text');
+                el.removeAttribute("style");
+                if (val === 'font-normal') {
+                    el.classList.replace(el.className, 'v_text-normal');
+                }
+                if (val === 'font-italic') {
+                    el.classList.replace(el.className, 'v_text-italic');
+                }
+                if (val == 'font-bold') {
+                    el.classList.replace(el.className, 'v_text-bold');
+                }
+                if (val == 'font-b_italic') {
+                    el.classList.replace(el.className, 'v_text-bold-italic');
+                }
             }
         }
     }

@@ -67,6 +67,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 v_content-center">
+                    <p class="v_user mt-5">Your design ready to share</p>
+                </div>
             </div>
         </div>
     </div>

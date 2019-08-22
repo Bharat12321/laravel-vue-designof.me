@@ -42,6 +42,20 @@
         padding-left: 36px;
         position: relative;
     }
+    input[id=normal] + label {
+        font-weight: normal !important;
+    }
+    input[id=italic] + label {
+        font-weight: normal !important;
+        font-style: italic !important;
+    }
+    input[id=bold] + label {
+        font-weight: bold !important;
+    }
+    input[id=b_italic] + label {
+        font-weight: bold !important;
+        font-style: italic !important;
+    }
     input[type=radio]:checked + label{
         color: #000000;
         font-weight: bolder;
@@ -116,8 +130,8 @@
         },
         methods: {
             updateInput: function(event) {
-                this.$emit('input', event.target.value);
-                console.log(this.$emit('input', event.target.value));
+                var val = event.target.value;
+                this.$emit('input', val);
             }
         }
     }
