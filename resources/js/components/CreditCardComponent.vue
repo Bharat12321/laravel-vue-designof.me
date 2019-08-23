@@ -284,12 +284,12 @@
         &__owner {
             position: absolute;
             left: 16px;
-            bottom: 16px;
+            bottom: 24px;
         }
         &__expiration {
             position: absolute;
             left: 16px;
-            bottom: 40px;
+            bottom: 60px;
         }
         &__etched-text {
             text-shadow: 1px 1px 16px #000;
