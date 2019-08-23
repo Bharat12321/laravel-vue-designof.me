@@ -4,9 +4,7 @@
             <img v-bind:src="my_shape">
         </div>
         <div class="v_rectangle"></div>
-        <div>
-            <img v-bind:src="circle">
-        </div>
+        <div class="v_circle"></div>
     </div>
 </template>
 
@@ -15,6 +13,15 @@
         width: 100%;
         height: 5px;
         background-color: black;
+    }
+    .v_circle {
+        position: relative;
+        width: 28px;
+        height: 28px;
+        top: -5%;
+        background-color: black;
+        border-color: black;
+        border-radius: 50%;
     }
 </style>
 

@@ -7,11 +7,11 @@
                     <p class="v_username mt-5">username</p>
                 </div>
                 <div
-                    v-for="card in cards"
-                    :key="card.id"
+                    v-for="info in infos"
+                    :key="info.id"
                     class="col-md-4 mb-5"
                 >
-                    <card-component :amount="card.amount" :text="card.text"></card-component>
+                    <info-component :amount="info.amount" :text="info.text"></info-component>
                 </div>
                 <div class="col-md-6 v_content-center">
                     <div class="text-center mt-5">
@@ -72,7 +72,7 @@
 <script>
     import { mdbInput, mdbBtn } from 'mdbvue';
     import NavComponent from '../components/NavComponent.vue';
-    import CardComponent from '../components/CardComponent.vue';
+    import InfoComponent from '../components/InfoComponent.vue';
 
     export default {
         name: 'Basic',
@@ -80,11 +80,11 @@
             mdbInput,
             mdbBtn,
             'nav-component': NavComponent,
-            'card-component': CardComponent
+            'info-component': InfoComponent
         },
         data: function() {
             return {
-                cards: [
+                infos: [
                     {
                         id: 0,
                         amount: 134,

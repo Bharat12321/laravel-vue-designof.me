@@ -2,7 +2,7 @@
     <div>
         <nav-component></nav-component>
         <div class="row v_content-center">
-            <div class="col-md-3 v_signup-form">
+            <div v-if="isShowForm" class="col-md-3 v_signup-form">
                 <form class="needs-validation" id="needs-validation" novalidate @submit="handleSubmit">
                     <p class="h1 text-center mb-4">Signup</p>
                     <div class="grey-text">
@@ -80,6 +80,11 @@
                     </div>
                 </form>
             </div>
+            <div class="col-md-12">
+                <transition name="fade">
+                    <creditcard-component v-if="isShowCard" :buttonName="'Register'" @input="handleBtn"></creditcard-component>
+                </transition>
+            </div>
         </div>
     </div>
 </template>
@@ -105,13 +110,23 @@
 <script>
     import { mdbInput, mdbBtn } from 'mdbvue';
     import NavComponent from '../components/NavComponent.vue';
+    import CreditCardComponent from '../components/CreditCardComponent.vue';
+    import CreditComponent from '../components/CreditComponent.vue';
 
     export default {
         name: 'Basic',
+        data: function() {
+            return {
+                isShowForm:true,
+                isShowCard: false
+            }
+        },
         components: {
             mdbInput,
             mdbBtn,
-            'nav-component': NavComponent
+            'nav-component': NavComponent,
+            'creditcard-component': CreditCardComponent,
+            'credit-component': CreditComponent,
         },
         methods: {
             handleSubmit(event) {
@@ -131,7 +146,19 @@
                     confEl.value = '';
                 }
                 var isValid = formEl.checkValidity();
-                console.log(formEl.checkValidity());
+                if (isValid) {
+                    this.isShowForm = false;
+                    this.isShowCard = true;
+                } else {
+                    reture;
+                }
+            },
+            handleBtn(cardNum, cardOwner, cardMonth, cardYear, cardCvc) {
+                console.log(cardNum);
+                console.log(cardOwner);
+                console.log(cardMonth);
+                console.log(cardYear);
+                console.log(cardCvc);
             }
         }
     }
