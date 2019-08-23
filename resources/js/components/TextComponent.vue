@@ -3,7 +3,7 @@
         <div class="container v_text-set">
             <div class="row">
                 <div class="col-md-6 ">
-                    <textarea class="v_text-content" name="" id="" cols="40" rows="10" v-model="text"></textarea>
+                    <textarea class="v_text-content form-control" name="" id="" cols="40" rows="10" v-model="text"></textarea>
                 </div>
                 <div class="col-md-6">
                     <span class="input-group-text black-text font-weight-bold v_text-type">Choose Text Type</span>
