@@ -62,7 +62,7 @@
                                 Agree to terms and conditions
                             </label>
                             <div class="invalid-feedback">
-                                You must agree before submitting.
+                                You must agree before continuing.
                             </div>
                         </div>
                     </div>
