@@ -246,7 +246,7 @@
             box-shadow: 2px 2px 2px rgba($black, .5);
 
             &_front {
-                background-color: #009E8E;
+                background-color: #2f2fe6;
                 box-shadow: 2px 2px 6px rgba($black, .6);
             }
             &_back {
