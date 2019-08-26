@@ -11,6 +11,7 @@
                                 heigt: 60px;
                                 font-size: 20pt;
                                 background-color: black !important;"
+                        @click.native="signup"
                     >
                         Register
                     </mdb-btn>
@@ -23,6 +24,7 @@
                                 heigt: 60px;
                                 font-size: 20pt;
                                 background-color: black !important;"
+                        @click.native="login"
                     >
                         Login
                     </mdb-btn>
@@ -92,6 +94,14 @@
                     }
                 ],
                 circle: circle
+            }
+        },
+        methods: {
+            signup() {
+                this.$router.push('register');
+            },
+            login() {
+                this.$router.push('login');
             }
         },
         mounted() {

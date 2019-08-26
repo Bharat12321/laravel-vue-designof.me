@@ -16,10 +16,15 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify);
 
+import VueCookie from 'vue-cookies';
+Vue.use(VueCookie);
+
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbvue/build/css/mdb.css';
 import App from './App.vue';
+
+import store from '../assets/js/store/store.js';
 
 import IndexComponent from './pages/IndexComponent.vue';
 import LoginComponent from './pages/LoginComponent.vue';
@@ -45,7 +50,7 @@ const routes = [
     },
     {
         name: 'profile',
-        path: '/:id',
+        path: '/:id/profile',
         component: ProfileComponent
     },
     {
@@ -59,4 +64,9 @@ const router = new VueRouter({
     mode: 'history',
     routes: routes
 });
-const app = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+
+new Vue(Vue.util.extend({
+    el: '#app',
+    router,
+    store
+}, App));

@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row v_content-center">
                 <div class="col-md-12 v_content-center">
-                    <p class="v_username mt-5">username</p>
+                    <p class="v_username mt-5">{{ username }}</p>
                 </div>
                 <div
                     v-for="info in infos"
@@ -32,6 +32,7 @@
                                     heigt: 70px;
                                     font-size: 18pt;
                                     background-color: black !important;"
+                            @click.native="create"
                         >
                             Add an Apparel
                         </mdb-btn>
@@ -84,6 +85,7 @@
         },
         data: function() {
             return {
+                username: this.$cookies.get('username'),
                 infos: [
                     {
                         id: 0,
@@ -101,6 +103,11 @@
                         text: 'View'
                     }
                 ]
+            }
+        },
+        methods: {
+            create() {
+                this.$router.push('createapparel');
             }
         }
     }

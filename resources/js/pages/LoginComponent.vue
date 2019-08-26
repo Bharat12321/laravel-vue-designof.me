@@ -6,16 +6,16 @@
                  <form class="needs-validation" id="needs-validation" novalidate @submit="handleSubmit">
                     <p class="h1 text-center mb-4">Login</p>
                     <div class="grey-text">
-                        <label for="validationCustomEmail">Email</label>
+                        <label for="validationCustomEmail">Username or Email</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrependEmail">
                                     <i class="fas prefix fa-envelope"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrependEmail" required>
+                            <input type="text" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrependEmail" required v-model="user.email">
                             <div class="invalid-feedback">
-                                Please input your email.
+                                Wrong username or email.
                             </div>
                         </div>
                         <label for="validationCustomPass">Password</label>
@@ -25,9 +25,9 @@
                                     <i class="fas prefix fa-lock"></i>
                                 </span>
                             </div>
-                            <input type="password" class="form-control" id="validationCustomPass" aria-describedby="inputGroupPrependPass" required>
+                            <input type="password" class="form-control" id="validationCustomPass" aria-describedby="inputGroupPrependPass" required v-model="user.password">
                             <div class="invalid-feedback">
-                                Please input your password.
+                                Wrong password.
                             </div>
                         </div>
                     </div>
@@ -45,6 +45,9 @@
                     </div>
                     <div class="text-center mt-4">
                         <a href="" class="h2 grey-text font-weight-normal">Forgot Password?</a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="/register" class="h4 black-text font-weight-normal">Create Account</a>
                     </div>
                 </form>
             </div>
@@ -77,6 +80,11 @@
 
     export default {
         name: 'Basic',
+        data: function() {
+            return {
+                user: {}
+            }
+        },
         components: {
             mdbInput,
             mdbBtn,
@@ -87,16 +95,26 @@
                 event.preventDefault();
                 event.target.classList.add('was-validated');
                 var formEl = document.getElementById('needs-validation');
-                var emailEl = document.getElementById('validationCustomEmail');
-                var passEl = document.getElementById('validationCustomPass');
-                if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailEl.value)) {
-                    emailEl.value = '';
-                }
-                if (!passEl.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
-                    passEl.value = '';
-                }
                 var isValid = formEl.checkValidity();
-                console.log(formEl.checkValidity());
+                if (isValid) {
+                    let uri = 'api/designofme/signin/';
+                    this.axios.post(uri, this.user)
+                    .then(response=> {
+                        console.log(response);
+                        if (response.data.status === 'failed') {
+                            document.getElementById('validationCustomEmail').value = '';
+                            document.getElementById('validationCustomPass').value = '';
+                        }
+                        else {
+                            this.$store.commit('setUsername', response.data.name);
+                            this.$cookies.set('username', response.data.name);
+                            this.$router.push(this.$store.getters.username + '/profile');
+                        }
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    });
+                }
             }
         }
 

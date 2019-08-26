@@ -2,7 +2,7 @@
     <div>
         <nav-component></nav-component>
         <div class="row v_content-center">
-            <div v-if="isShowForm" class="col-md-3 v_signup-form">
+            <div class="col-md-3 v_signup-form">
                 <form class="needs-validation" id="needs-validation" novalidate @submit="handleSubmit">
                     <p class="h1 text-center mb-4">Signup</p>
                     <div class="grey-text">
@@ -13,7 +13,7 @@
                                     <i class="fas prefix fa-user"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" id="validationCustomName" aria-describedby="inputGroupPrependName" required>
+                            <input type="text" class="form-control" id="validationCustomName" aria-describedby="inputGroupPrependName" required v-model="user.name">
                             <div class="invalid-feedback">
                                 Please input your first and last name.
                             </div>
@@ -25,9 +25,21 @@
                                     <i class="fas prefix fa-envelope"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrependEmail" required>
+                            <input type="text" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrependEmail" required v-model="user.email">
                             <div class="invalid-feedback">
-                                Please input valid email.
+                                Please input valid email not duplicated.
+                            </div>
+                        </div>
+                        <label for="validationCustomUsername">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrependUsername">
+                                    <i class="fas prefix">@</i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrependUsername" required v-model="user.username">
+                            <div class="invalid-feedback">
+                                Please input valid username not duplicated.
                             </div>
                         </div>
                         <label for="validationCustomPass">Password</label>
@@ -37,7 +49,7 @@
                                     <i class="fas prefix fa-lock"></i>
                                 </span>
                             </div>
-                            <input type="password" class="form-control" id="validationCustomPass" aria-describedby="inputGroupPrependPass" required>
+                            <input type="password" class="form-control" id="validationCustomPass" aria-describedby="inputGroupPrependPass" required v-model="user.password">
                             <div class="invalid-feedback">
                                 Please input 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter.
                             </div>
@@ -75,15 +87,10 @@
                                     font-size: 20pt;
                                     background-color: black !important;"
                         >
-                            Continue
+                            Sign Up
                         </mdb-btn>
                     </div>
                 </form>
-            </div>
-            <div class="col-md-12">
-                <transition name="fade">
-                    <creditcard-component v-if="isShowCard" :buttonName="'Register'" @input="handleBtn"></creditcard-component>
-                </transition>
             </div>
         </div>
     </div>
@@ -117,16 +124,13 @@
         name: 'Basic',
         data: function() {
             return {
-                isShowForm:true,
-                isShowCard: false
+                user: {}
             }
         },
         components: {
             mdbInput,
             mdbBtn,
-            'nav-component': NavComponent,
-            'creditcard-component': CreditCardComponent,
-            'credit-component': CreditComponent,
+            'nav-component': NavComponent
         },
         methods: {
             handleSubmit(event) {
@@ -134,31 +138,53 @@
                 event.target.classList.add('was-validated');
                 var formEl = document.getElementById('needs-validation');
                 var emailEl = document.getElementById('validationCustomEmail');
+                var usernameEl = document.getElementById('validationCustomUsername');
                 var passEl = document.getElementById('validationCustomPass');
                 var confEl = document.getElementById('validationCustomConfirm');
-                if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailEl.value)) {
+                if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email)) {
                     emailEl.value = '';
-                }
-                if (!passEl.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
-                    passEl.value = '';
-                }
-                if (!(confEl.value === passEl.value)) {
-                    confEl.value = '';
-                }
-                var isValid = formEl.checkValidity();
-                if (isValid) {
-                    this.isShowForm = false;
-                    this.isShowCard = true;
-                } else {
-                    reture;
-                }
-            },
-            handleBtn(cardNum, cardOwner, cardMonth, cardYear, cardCvc) {
-                console.log(cardNum);
-                console.log(cardOwner);
-                console.log(cardMonth);
-                console.log(cardYear);
-                console.log(cardCvc);
+                };
+                let uri = 'api/designofme/checkuser';
+                this.axios.get(uri,{
+                    params: {
+                        email: this.user.email,
+                        username: this.user.username
+                    }
+                })
+                .then(response => {
+                    if (response.data.useremail > 0) {
+                        emailEl.value = '';
+                    }
+                    if (response.data.username > 0) {
+                        usernameEl.value = '';
+                    }
+                    if (response.data.useremail === 0 && response.data.username === 0) {
+                        if (!passEl.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
+                            passEl.value = '';
+                        };
+                        if (!(confEl.value === passEl.value)) {
+                            confEl.value = '';
+                        };
+                        var isValid = formEl.checkValidity();
+                        if (isValid) {
+                            let uri = 'api/designofme/signup';
+                            this.axios.post(uri, this.user)
+                            .then(response => {
+                                if (response.data.status === 'success') {
+                                    this.$store.commit('setUsername', response.data.name);
+                                    this.$cookies.set('username', response.data.name);
+                                    this.$router.push(this.$store.getters.username + '/profile');
+                                }
+                            })
+                            .catch(function(error){
+                                console.log(error);
+                            });
+                        }
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                });
             }
         }
     }

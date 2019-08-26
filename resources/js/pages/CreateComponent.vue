@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row v_content-center">
                 <div class="col-md-12 v_content-center">
-                    <p class="v_user mt-5">Making by user</p>
+                    <p class="v_user mt-5">Making by {{ username }}</p>
                 </div>
                 <div class="col-md-12 v_content-center">
                     <img :src=mark >
@@ -151,6 +151,7 @@
         },
         data: function() {
             return {
+                username: this.$cookies.get('username'),
                 isLogoBtnActive: true,
                 isTextBtnActive: false,
                 mark: mark,
@@ -192,7 +193,7 @@
             }
         },
         mounted() {
-            console.log("This component was mounted");
+            console.log(this.username);
         }
     }
 </script>

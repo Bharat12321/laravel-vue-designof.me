@@ -349,7 +349,7 @@
                 if (!this.card.expiration.month || !this.card.expiration.year)
                 return '';
 
-                return this.card.expiration.month + '/' + this.card.expiration.year;
+                return this.card.expiration.month + '/' + this.card.expiration.year % 2000;
             },
 
             months: function () {
@@ -361,7 +361,7 @@
             },
             years: function () {
                 var years= [];
-                var currentYear = (new Date()).getFullYear() % 2000;
+                var currentYear = (new Date()).getFullYear();
 
                 for (var i = 0; i < 18; i++)
                     years.push(currentYear + i);

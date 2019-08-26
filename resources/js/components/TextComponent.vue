@@ -52,6 +52,7 @@
     .v_text-type {
         background-color: white;
         border: none;
+        font-size: 24px;
     }
     .v_text-normal {
         position: absolute;
