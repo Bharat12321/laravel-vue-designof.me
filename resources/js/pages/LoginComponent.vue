@@ -108,7 +108,7 @@
                         else {
                             this.$store.commit('setUsername', response.data.name);
                             this.$cookies.set('username', response.data.name);
-                            this.$router.push(this.$store.getters.username + '/profile');
+                            this.$router.push(response.data.name);
                         }
                     })
                     .catch(function(error){

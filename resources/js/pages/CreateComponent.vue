@@ -67,9 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 v_content-center">
-                    <p class="v_user mt-5">Your design ready to share</p>
-                </div>
+                <div id="img-out"></div>
             </div>
         </div>
     </div>
@@ -79,11 +77,6 @@
     .v_content-center {
         display: flex;
         justify-content: center;
-    }
-    .v_user {
-        color: grey;
-        font-weight: normal;
-        font-size: 40px;
     }
     .v_outer {
         position: relative;
@@ -134,6 +127,7 @@
 <script>
     import { mdbInput, mdbBtn } from 'mdbvue';
     import {Money} from 'v-money';
+    import html2canvas from 'html2canvas';
     import NavComponent from '../components/NavComponent.vue';
     import LogoComponent from '../components/LogoComponent.vue';
     import TextComponent from '../components/TextComponent.vue';
@@ -163,7 +157,8 @@
                     suffix: '$',
                     precision: 2,
                     masked: false
-                }
+                },
+                product_image: new Image()
             }
         },
         methods: {
@@ -176,8 +171,6 @@
                 textBtnEl.classList.remove('v_active');
                 this.isLogoBtnActive = true;
                 this.isTextBtnActive = false;
-                console.log(this.isLogoBtnActive);
-                console.log(this.isTextBtnActive);
             },
             clickText: function(event) {
                 var logoBtnEl = document.getElementById('logoBtn');
@@ -188,12 +181,12 @@
                 textBtnEl.classList.remove('v_nonactive');
                 this.isLogoBtnActive = false;
                 this.isTextBtnActive = true;
-                console.log(this.isLogoBtnActive);
-                console.log(this.isTextBtnActive);
+            },
+            convert() {
+                html2canvas(document.getElementById('preview_tshirt')).then(function(canvas) {
+                    document.body.appendChild(canvas);
+                });
             }
-        },
-        mounted() {
-            console.log(this.username);
         }
     }
 </script>

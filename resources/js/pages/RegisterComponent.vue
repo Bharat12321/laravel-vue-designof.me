@@ -117,8 +117,6 @@
 <script>
     import { mdbInput, mdbBtn } from 'mdbvue';
     import NavComponent from '../components/NavComponent.vue';
-    import CreditCardComponent from '../components/CreditCardComponent.vue';
-    import CreditComponent from '../components/CreditComponent.vue';
 
     export default {
         name: 'Basic',
@@ -173,7 +171,7 @@
                                 if (response.data.status === 'success') {
                                     this.$store.commit('setUsername', response.data.name);
                                     this.$cookies.set('username', response.data.name);
-                                    this.$router.push(this.$store.getters.username + '/profile');
+                                    this.$router.push(response.data.name);
                                 }
                             })
                             .catch(function(error){

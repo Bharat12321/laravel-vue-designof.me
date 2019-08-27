@@ -14,20 +14,28 @@
                         <radio name="font" id="b_italic" value="font-b_italic" label="Text Type 04" v-bind:inverted="true" v-bind:checked="false" v-bind:required="true" v-on:input="handleClick"></radio>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="v_product">
-            <div class="v_content-center v_tshirt">
-                <img :src="tshirt">
-            </div>
-            <div>
-                <label id="shirt-text" class="v_text-normal">{{ text }}</label>
+                <div class="col-md-12 v_product" id="preview_tshirt">
+                    <div class="v_content-center v_tshirt">
+                        <img :src="tshirt">
+                    </div>
+                    <div>
+                        <label id="shirt-text" class="v_text-normal">{{ text }}</label>
+                    </div>
+                </div>
+                <div class="col-md-12 v_content-center">
+                    <p class="v_user mt-5">Your design ready to share</p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+    .v_user {
+        color: grey;
+        font-weight: normal;
+        font-size: 40px;
+    }
     .v_content-center {
         display: flex;
         justify-content: center;
@@ -105,7 +113,8 @@
         data: function() {
             return {
                 tshirt: tshirt,
-                text: ''
+                text: '',
+                image: new Image()
             }
         },
         methods: {

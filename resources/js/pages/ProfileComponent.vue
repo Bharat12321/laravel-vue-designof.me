@@ -20,6 +20,7 @@
                                     heigt: 70px;
                                     font-size: 18pt;
                                     background-color: black !important;"
+                            @click.native="withdraw"
                         >
                             Withdraw Money
                         </mdb-btn>
@@ -106,8 +107,11 @@
             }
         },
         methods: {
+            withdraw() {
+
+            },
             create() {
-                this.$router.push('createapparel');
+                this.$router.push(this.$store.getters.username + '/createapparel');
             }
         }
     }

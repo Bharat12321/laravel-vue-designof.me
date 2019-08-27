@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "html2canvas": "^1.0.0-rc.3",
         "material-design-icons-iconfont": "^5.0.1",
         "mdbvue": "^5.8.1",
         "v-money": "^0.8.1",

@@ -10,7 +10,7 @@
 
 <style>
     .fade-enter-active, .fade-leave-active {
-      transition: opacity .5s
+      transition: opacity .3
     }
     .fade-enter, .fade-leave-active {
       opacity: 0
@@ -18,7 +18,7 @@
 </style>
 
 <script>
-
     export default{
+
     }
 </script>
