@@ -23,7 +23,16 @@
                     </div>
                 </div>
                 <div class="col-md-12 v_content-center">
-                    <p class="v_user mt-5">Your design ready to share</p>
+                    <p class="v_user">Your design ready to share</p>
+                </div>
+                <div class="col-md-4 v_action v_share v_content-center">
+                    <a @click.prevent="share">Share Link</a>
+                </div>
+                <div class="col-md-4 v_action v_download v_content-center">
+                    <a @click.prevent="download">Download Picture</a>
+                </div>
+                <div class="col-md-4 v_action v_another v_content-center">
+                    <a @click.prevent="make">Make Another</a>
                 </div>
             </div>
         </div>
@@ -96,11 +105,16 @@
         font-size: 30px;
         letter-spacing: 2px;
     }
-
+    .v_action {
+        color: black;
+        font-size: 20px;
+        margin-top: -30px;
+    }
 </style>
 
 <script>
     import { mdbInput, mdbBtn } from 'mdbvue';
+    import html2canvas from 'html2canvas';
     import RadioComponent from '../components/RadioComponent.vue';
     import tshirt from '../../assets/images/tshirt.png';
     export default {
@@ -118,6 +132,15 @@
             }
         },
         methods: {
+            share() {
+                console.log("share");
+            },
+            download() {
+                console.log("download");
+            },
+            make() {
+                console.log("make");
+            },
             handleClick: function(val) {
                 var el = document.getElementById('shirt-text');
                 el.removeAttribute("style");
@@ -133,6 +156,11 @@
                 if (val == 'font-b_italic') {
                     el.classList.replace(el.className, 'v_text-bold-italic');
                 }
+            },
+            convert() {
+                html2canvas(document.getElementById('preview_tshirt')).then(function(canvas) {
+                    document.body.appendChild(canvas);
+                });
             }
         }
     }

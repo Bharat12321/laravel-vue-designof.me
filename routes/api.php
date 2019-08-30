@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('designofme/getallusers', 'UserController@index');
+Route::get('designofme/', 'UserController@index');
 Route::get('designofme/checkuser', 'UserController@checkuser');
 Route::post('designofme/signin/', 'UserController@siginin');
 Route::post('designofme/signup', 'UserController@signup');

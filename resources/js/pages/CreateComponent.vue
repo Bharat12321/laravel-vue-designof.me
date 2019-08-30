@@ -67,13 +67,17 @@
                         </div>
                     </div>
                 </div>
-                <div id="img-out"></div>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+    .v_user {
+        color: grey;
+        font-weight: normal;
+        font-size: 40px;
+    }
     .v_content-center {
         display: flex;
         justify-content: center;
@@ -127,7 +131,6 @@
 <script>
     import { mdbInput, mdbBtn } from 'mdbvue';
     import {Money} from 'v-money';
-    import html2canvas from 'html2canvas';
     import NavComponent from '../components/NavComponent.vue';
     import LogoComponent from '../components/LogoComponent.vue';
     import TextComponent from '../components/TextComponent.vue';
@@ -181,11 +184,6 @@
                 textBtnEl.classList.remove('v_nonactive');
                 this.isLogoBtnActive = false;
                 this.isTextBtnActive = true;
-            },
-            convert() {
-                html2canvas(document.getElementById('preview_tshirt')).then(function(canvas) {
-                    document.body.appendChild(canvas);
-                });
             }
         }
     }
