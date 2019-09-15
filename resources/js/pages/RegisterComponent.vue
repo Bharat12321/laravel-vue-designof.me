@@ -34,7 +34,7 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrependUsername">
-                                    <i class="fas prefix">@</i>
+                                    <i class="fas fa-at"></i>
                                 </span>
                             </div>
                             <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrependUsername" required v-model="user.username">

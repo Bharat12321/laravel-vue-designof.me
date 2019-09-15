@@ -45,9 +45,9 @@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text black-text font-weight-bold v_pend">Time:</span>
+                                    <span class="input-group-text black-text font-weight-bold v_pend" >Time:</span>
                                 </div>
-                                <input type="time" class="form-control v_prize" />
+                                <input type="time" class="form-control v_prize" v-model="time"/>
                                 <div class="input-group-append">
                                     <span class="input-group-text v_pend">Don't use timer for limitless links</span>
                                 </div>
@@ -55,8 +55,9 @@
                         </div>
                         <div
                             class="col-md-12 v_tshirt-view"
-                            v-if="isLogoBtnActive"
+                            v-if="isLogoBtnActive" ref="foo"
                         >
+                        
                             <logo-component></logo-component>
                         </div>
                         <div
@@ -153,6 +154,7 @@
                 isTextBtnActive: false,
                 mark: mark,
                 price: 20.00,
+                time : '',
                 money: {
                     decimal: '.',
                     thousand: ',',
@@ -184,7 +186,8 @@
                 textBtnEl.classList.remove('v_nonactive');
                 this.isLogoBtnActive = false;
                 this.isTextBtnActive = true;
-            }
+            },
+          
         }
     }
 </script>

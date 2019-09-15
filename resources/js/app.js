@@ -35,6 +35,9 @@ import LoginComponent from './pages/LoginComponent.vue';
 import RegisterComponent from './pages/RegisterComponent.vue';
 import ProfileComponent from './pages/ProfileComponent.vue';
 import CreateComponent from './pages/CreateComponent.vue';
+import ProductComponent from './pages/ProductComponent.vue';
+import CheckoutComponent from './pages/CheckoutComponent.vue';
+import SuccessComponent from './pages/SuccessComponent.vue';
 
 const routes = [
     {
@@ -61,7 +64,23 @@ const routes = [
         name: 'create',
         path: '/:id/createapparel',
         component: CreateComponent
-    }
+    },
+    {
+        name: 'buy',
+        path: '/:username/:id',
+        component: ProductComponent
+    },
+    {
+        name: 'checkout',
+        path: '/checkout/:username/:id/:color/:size',
+        component: CheckoutComponent
+    },
+    {
+        name: 'success',
+        path: '/order/success/:id/:userid/:size/:color',
+        component: SuccessComponent
+    }    
+    
 ];
 
 const router = new VueRouter({
